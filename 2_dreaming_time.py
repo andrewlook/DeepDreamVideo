@@ -18,8 +18,9 @@ from google.protobuf import text_format
 import caffe
 
 def extractVideo(inputdir, outputdir):
-    print subprocess.Popen('ffmpeg -i ' + inputdir + ' -f image2 ' + outputdir + '/%08d.png', shell=True,
-                           stdout=subprocess.PIPE).stdout.read()
+    print(subprocess.Popen('ffmpeg -i ' + inputdir + ' -f image2 ' + outputdir + '/%08d.png',
+                           shell=True,
+                           stdout=subprocess.PIPE).stdout.read())
 
 def showarray(a, fmt='jpeg'):
     a = np.uint8(np.clip(a, 0, 255))
@@ -35,7 +36,6 @@ def showarrayHQ(a, fmt='png'):
 
 # a couple of utility functions for converting to and from Caffe's input image layout
 def preprocess(net, img):
-    #print np.float32(img).shape
     return np.float32(np.rollaxis(img, 2)[::-1]) - net.transformer.mean['data']
 def deprocess(net, img):
     return np.dstack((img + net.transformer.mean['data'])[::-1])
@@ -209,10 +209,10 @@ def deepdream_guided(net, base_img, image_type, iter_n=10, octave_n=4, octave_sc
                     showarrayHQ(vis)
                 elif image_type == "jpg":
                     showarray(vis)
-            	print octave, i, end, vis.shape
+            	print(octave, i, end, vis.shape)
                 clear_output(wait=True)
             elif verbose == 2:
-                print octave, i, end, vis.shape
+                print(octave, i, end, vis.shape)
 
         # extract details produced on the current octave
         detail = src.data[0]-octave_base
@@ -343,15 +343,15 @@ def main(input, output, image_type, gpu, model_path, model_name, preview, octave
         totaltime += difference
         avgtime = (totaltime / i)
         # Stats (stolen + adapted from Samim: https://github.com/samim23/DeepDreamAnim/blob/master/dreamer.py)
-        print '***************************************'
-        print 'Saving Image As: ' + saveframe
-        print 'Frame ' + str(i) + ' of ' + str(nrframes-1)
-        print 'Frame Time: ' + str(difference) + 's'
+        print('***************************************')
+        print('Saving Image As: ' + saveframe)
+        print('Frame ' + str(i) + ' of ' + str(nrframes-1))
+        print('Frame Time: ' + str(difference) + 's')
         timeleft = avgtime * ((nrframes-1) - frame_i)        
         m, s = divmod(timeleft, 60)
         h, m = divmod(m, 60)
-        print 'Estimated Total Time Remaining: ' + str(timeleft) + 's (' + "%d:%02d:%02d" % (h, m, s) + ')'
-        print '***************************************'
+        print('Estimated Total Time Remaining: ' + str(timeleft) + 's (' + "%d:%02d:%02d" % (h, m, s) + ')')
+        print('***************************************')
 
         PIL.Image.fromarray(np.uint8(frame)).save(saveframe)
         newframe = input + "/%08d.%s" % (frame_i,image_type)
