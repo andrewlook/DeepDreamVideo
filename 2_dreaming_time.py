@@ -9,7 +9,11 @@ import time
 import subprocess
 from random import randint
 
-from cStringIO import StringIO
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from io import StringIO
+
 import numpy as np
 import scipy.ndimage as nd
 import PIL.Image
