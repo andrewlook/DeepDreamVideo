@@ -9,6 +9,8 @@ import time
 import subprocess
 from random import randint
 
+# python 3 fixes
+from past.builtins import xrange
 try:
     from cStringIO import StringIO
 except ImportError:
