@@ -221,7 +221,7 @@ def deepdream_guided(net, base_img, image_type, iter_n=10, octave_n=4, octave_sc
 
 def resizePicture(image,width):
     img = PIL.Image.open(image)
-        basewidth = width
+    basewidth = width
     wpercent = (basewidth/float(img.size[0]))
     hsize = int((float(img.size[1])*float(wpercent)))
     return img.resize((basewidth,hsize), PIL.Image.ANTIALIAS)
@@ -476,10 +476,10 @@ if __name__ == "__main__":
         required=False,
         help="end frame nr")
     parser.add_argument(
-    '-e', '--extract',
-    type=int,
-    required=False,
-    help="Extract frames from video")
+        '-e', '--extract',
+        type=int,
+        required=False,
+        help="Extract frames from video")
 
     args = parser.parse_args()
 
